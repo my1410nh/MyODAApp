@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:async'; 
+import 'login_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -79,5 +81,29 @@ class SplashScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class SplashScreenWithTimer extends StatefulWidget {
+  @override
+  _SplashScreenWithTimerState createState() => _SplashScreenWithTimerState();
+}
+
+class _SplashScreenWithTimerState extends State<SplashScreenWithTimer> {
+  @override
+  void initState() {
+    super.initState();
+
+    Timer(Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LogInScreen()), 
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SplashScreen(); 
   }
 }

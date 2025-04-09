@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myodaapp/splash_screen.dart';
+import 'splash_screen.dart';  // Import the splash screen with timer
 
 void main() {
   runApp(const MyApp());
@@ -11,8 +11,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      title: 'Splash Screen Example',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: SplashScreenWithTimer(),  // Start with SplashScreenWithTimer
     );
   }
 }
