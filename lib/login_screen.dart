@@ -1,19 +1,74 @@
 import 'package:flutter/material.dart';
+import 'dialogue/login_dialogue.dart'; // Import the custom alert dialog
 
-class LogInScreen extends StatelessWidget {
+class LogInScreen extends StatefulWidget {
+  @override
+  _LogInScreenState createState() => _LogInScreenState();
+}
+
+class _LogInScreenState extends State<LogInScreen> {
+  final _formKey = GlobalKey<FormState>();
+  bool _isPasswordVisible = false;
+  String? _email;
+  String? _password;
+
+  // Email validator
+  String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Vui lòng nhập email';
+    }
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    if (!emailRegex.hasMatch(value)) {
+      return 'Email không hợp lệ';
+    }
+    return null;
+  }
+
+  // Password validator
+  String? validatePassword(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Vui lòng nhập mật khẩu';
+  }
+  return null; 
+  }
+
+  void _attemptLogin() {
+  if (_formKey.currentState?.validate() ?? false) {
+    _formKey.currentState!.save();
+
+    final passwordRegex = RegExp(r'^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$');
+    if (!passwordRegex.hasMatch(_password ?? '')) {
+      showDialog(
+        context: context,
+        builder: (context) => const LoginDialogue(),
+      );
+      return;
+    }
+    bool loginSuccessful = false;
+
+    if (!loginSuccessful) {
+      showDialog(
+        context: context,
+        builder: (context) => const LoginDialogue(),
+      );
+      }
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Color.fromRGBO(0, 92, 252, 1), // Background color
+        backgroundColor: Color.fromRGBO(0, 92, 252, 1),
         body: Stack(
           children: <Widget>[
-            // VNPT logo background
+            // VNPT logo 
             Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/images/vnptlogo.png'),
-                  alignment: Alignment.topLeft, // Positioning the logo top-left
+                  alignment: Alignment.topLeft, 
                 ),
               ),
             ),
@@ -22,12 +77,10 @@ class LogInScreen extends StatelessWidget {
             Align(
               alignment: Alignment.topCenter,
               child: Padding(
-                padding: const EdgeInsets.only(top: 60), // Adjust padding
+                padding: const EdgeInsets.only(top: 60),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    // Logo
                     CircleAvatar(
                       radius: 30.0,
                       backgroundColor: Colors.white,
@@ -39,8 +92,6 @@ class LogInScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 20),
-
-                    // Title
                     Text(
                       'HỆ THỐNG THÔNG TIN',
                       style: TextStyle(
@@ -50,9 +101,7 @@ class LogInScreen extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-
                     SizedBox(height: 10),
-
                     Text(
                       'QUẢN LÝ TÀI CHÍNH VNPT',
                       style: TextStyle(
@@ -67,12 +116,12 @@ class LogInScreen extends StatelessWidget {
               ),
             ),
 
-            // The container for the login form with rounded corners
+            // Container
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: 660, // Adjust the height of the container
+                height: 660, 
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(40.0),
@@ -81,98 +130,124 @@ class LogInScreen extends StatelessWidget {
                   color: Colors.white,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 40.0, left: 30.0, right: 30.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start, 
-                    crossAxisAlignment: CrossAxisAlignment.center, 
-                    children: <Widget>[
-                      // Title "ĐĂNG NHẬP"
-                      Text(
-                        'ĐĂNG NHẬP',
-                        style: TextStyle(
-                          fontFamily: 'SF Pro Text',
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBox(height: 30), 
-
-                      // Username TextField
-                      TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Tên đăng nhập',
-                          filled: true,
-                          fillColor: Colors.grey[200],
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide.none,
-                          ),
-                          contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                        ),
-                      ),
-                      SizedBox(height: 20),
-
-                      // Password TextField
-                      TextField(
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          hintText: 'Mật khẩu',
-                          filled: true,
-                          fillColor: Colors.grey[200],
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide.none,
-                          ),
-                          contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                          suffixIcon: IconButton(
-                            icon: Icon(Icons.visibility_off, color: Colors.grey),
-                            onPressed: () {
-                              // Handle password visibility toggle
-                            },
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 40),
-
-                      // Login Button
-                      ElevatedButton(
-                        onPressed: () {
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromRGBO(1, 118, 255, 1), 
-                          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                        child: Text(
-                          'Đăng nhập',
+                  padding: const EdgeInsets.only(top: 40.0, left: 20.0, right: 20.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        // Title 
+                        Text(
+                          'ĐĂNG NHẬP',
                           style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
+                            fontFamily: 'SF Pro Text',
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
-                      ),
-                      SizedBox(height: 40),
+                        SizedBox(height: 30),
 
-                      // Fingerprint
-                      GestureDetector(
-                        onTap: () {
-                          // Handle fingerprint authentication
-                        },
-                        child: Icon(
-                          Icons.fingerprint,
-                          color: Colors.blue,
-                          size: 40,
+                        // Email Field
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              border: UnderlineInputBorder(),
+                              labelText: 'Tên đăng nhập',
+                            ),
+                            keyboardType: TextInputType.emailAddress,
+                            validator: validateEmail,
+                            onSaved: (value) => _email = value,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 20),
-                    ],
+
+                        // Password Field
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                          child: TextFormField(
+                            obscureText: !_isPasswordVisible,
+                            decoration: InputDecoration(
+                              border: const UnderlineInputBorder(),
+                              labelText: 'Mật khẩu',
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                                  color: Colors.grey,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _isPasswordVisible = !_isPasswordVisible;
+                                  });
+                                },
+                              ),
+                            ),
+                            validator: validatePassword,
+                            onSaved: (value) => _password = value,
+                          ),
+                        ),
+
+                        SizedBox(height: 40),
+
+                        // Login Button 
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: _attemptLogin,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color.fromRGBO(1, 118, 255, 1),
+                              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                            ),
+                            child: Text(
+                              'Đăng nhập',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 40),
+
+                        // Fingerprint 
+                        GestureDetector(
+                          onTap: () {
+                          },
+                          child: Icon(
+                            Icons.fingerprint,
+                            color: Colors.blue,
+                            size: 40,
+                          ),
+                        ),
+                        SizedBox(height: 20),
+
+                        
+                      ],
+                    ),
                   ),
                 ),
               ),
-            )
+            ),
 
+            // Copyright Text
+            Positioned(
+              bottom: 25,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Text(
+                  'Copyright 2020 VNPT IT',
+                  style: TextStyle(
+                    color: Color.fromRGBO(119, 140, 162, 1),
+                    fontSize: 12,
+                    fontFamily: 'SF Pro Text',
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
