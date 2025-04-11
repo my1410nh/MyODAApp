@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myodaapp/home_screen.dart';
 import 'dialogue/login_dialogue.dart'; 
 
 class LogInScreen extends StatefulWidget {
@@ -47,9 +48,8 @@ class _LogInScreenState extends State<LogInScreen> {
     bool loginSuccessful = false;
 
     if (!loginSuccessful) {
-      showDialog(
-        context: context,
-        builder: (context) => const LoginDialogue(),
+      Navigator.pushReplacement(context, 
+      MaterialPageRoute(builder: (_) => HomeScreen()),
       );
       }
     }
