@@ -1,6 +1,9 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'dart:async'; 
-import 'login_screen.dart';
+import 'package:myodaapp/login_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'onboarding_screen.dart';
+import 'home_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -10,26 +13,20 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          // Background
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/splashbg.png'), 
-                fit: BoxFit.cover, 
+                image: AssetImage('assets/images/splashbg.png'),
+                fit: BoxFit.cover,
               ),
             ),
           ),
-          
-          // Logo and Title
           Align(
-            alignment: Alignment.topCenter, 
+            alignment: Alignment.topCenter,
             child: Padding(
-              padding: const EdgeInsets.only(top: 250), 
+              padding: const EdgeInsets.only(top: 250),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start, 
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  // Logo
                   CircleAvatar(
                     radius: 30.0,
                     backgroundColor: Colors.white,
@@ -41,8 +38,6 @@ class SplashScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 20),
-
-                  // Title
                   Text(
                     'HỆ THỐNG THÔNG TIN',
                     style: TextStyle(
@@ -52,9 +47,7 @@ class SplashScreen extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-
                   SizedBox(height: 10),
-
                   Text(
                     'QUẢN LÝ TÀI CHÍNH VNPT',
                     style: TextStyle(
@@ -68,14 +61,12 @@ class SplashScreen extends StatelessWidget {
               ),
             ),
           ),
-          
-          // Bottom image
           Align(
-            alignment: Alignment.bottomCenter, 
+            alignment: Alignment.bottomCenter,
             child: Image.asset(
-              'assets/images/splashbottom.png', 
-              width: MediaQuery.of(context).size.width, 
-              fit: BoxFit.cover, 
+              'assets/images/splashbottom.png',
+              width: MediaQuery.of(context).size.width,
+              fit: BoxFit.cover,
             ),
           ),
         ],
@@ -93,17 +84,29 @@ class _SplashScreenWithTimerState extends State<SplashScreenWithTimer> {
   @override
   void initState() {
     super.initState();
+    _navigateAfterDelay();
+  }
 
-    Timer(Duration(seconds: 3), () {
+  Future<void> _navigateAfterDelay() async {
+    await Future.delayed(Duration(seconds: 3));
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool seen = prefs.getBool('onboarding_complete') ?? false;
+
+    if (!seen) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LogInScreen()), 
+        MaterialPageRoute(builder: (_) => OnboardingScreen()),
       );
-    });
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => LogInScreen()),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return SplashScreen(); 
+    return const SplashScreen();
   }
 }

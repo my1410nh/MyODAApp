@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dialogue/login_dialogue.dart'; // Import the custom alert dialog
+import 'dialogue/login_dialogue.dart'; 
 
 class LogInScreen extends StatefulWidget {
   @override

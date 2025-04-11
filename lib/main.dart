@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import 'splash_screen.dart';  // Import the splash screen with timer
+import 'splash_screen.dart'; 
+import 'onboarding_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.remove('onboarding_complete'); 
   runApp(const MyApp());
 }
 
@@ -15,7 +20,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SplashScreenWithTimer(),  // Start with SplashScreenWithTimer
+      home: SplashScreenWithTimer(),  
     );
   }
 }
+
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   final prefs = await SharedPreferences.getInstance();
+//   await prefs.remove('onboarding_complete'); 
+//   runApp(const MaterialApp());
+// }
