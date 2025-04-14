@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:myodaapp/home/home_screen.dart';
 import 'package:myodaapp/nav/bottomnavbar.dart';
 import 'dialogue/login_dialogue.dart'; 
 
@@ -256,3 +255,4 @@ class _LogInScreenState extends State<LogInScreen> {
     );
   }
 }
+

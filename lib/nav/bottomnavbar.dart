@@ -48,8 +48,8 @@ class _NavBarState extends State<NavBar>{
             icon: ImageIcon(
               AssetImage(
                 _currentIndex == 1
-                    ? 'assets/icons/ic_notification.png'
-                    : 'assets/icons/ic_notification_border.png',
+                    ? 'assets/icons/ic_notifications-num.png'
+                    : 'assets/icons/ic_notifications_border.png',
               ),
             ),
           ),
@@ -68,3 +68,51 @@ class _NavBarState extends State<NavBar>{
     );
   }
 }
+
+// import 'package:flutter/material.dart';
+// import '../home/home_screen.dart';
+
+// class NavBar extends StatefulWidget {
+//   const NavBar({super.key});
+
+//   @override
+//   State<NavBar> createState() => _NavBarState();
+// }
+
+// class _NavBarState extends State<NavBar> {
+//   int _currentIndex = 0;
+
+//   final List<Widget> _screens = const [
+//     HomeScreen(),
+//     Center(child: Text('Notifications')),
+//     Center(child: Text('Profile')),
+//   ];
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: _screens[_currentIndex],
+//       bottomNavigationBar: BottomNavigationBar(
+//         currentIndex: _currentIndex,
+//         onTap: (index) => setState(() => _currentIndex = index),
+//         items: const [
+//           BottomNavigationBarItem(
+//             label: 'Trang chủ',
+//             icon: ImageIcon(AssetImage('assets/icons/ic_home_border.png'), size: 24),
+//             activeIcon: ImageIcon(AssetImage('assets/icons/ic_home.png'), size: 24),
+//           ),
+//           BottomNavigationBarItem(
+//             label: 'Thông báo',
+//             icon: ImageIcon(AssetImage('assets/icons/ic_notifications_border.png'), size: 24),
+//             activeIcon: ImageIcon(AssetImage('assets/icons/ic_notifications-num.png'), size: 24),
+//           ),
+//           BottomNavigationBarItem(
+//             label: 'Tài khoản',
+//             icon: ImageIcon(AssetImage('assets/icons/ic_profile_border.png'), size: 24),
+//             activeIcon: ImageIcon(AssetImage('assets/icons/ic_profile.png'), size: 24),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

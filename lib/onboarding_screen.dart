@@ -145,3 +145,32 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 }
+
+// import 'package:flutter/material.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+// import 'login_screen.dart';
+
+// class OnboardingScreen extends StatelessWidget {
+//   const OnboardingScreen({super.key});
+
+//   Future<void> _completeOnboarding(BuildContext context) async {
+//     final prefs = await SharedPreferences.getInstance();
+//     await prefs.setBool('onboarding_complete', true);
+//     Navigator.pushReplacement(
+//       context,
+//       MaterialPageRoute(builder: (_) => const LoginScreen()),
+//     );
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Center(
+//         child: ElevatedButton(
+//           onPressed: () => _completeOnboarding(context),
+//           child: const Text('Finish Onboarding'),
+//         ),
+//       ),
+//     );
+//   }
+// }
