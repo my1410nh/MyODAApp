@@ -20,6 +20,7 @@ class _NavBarState extends State<NavBar>{
 
   @override 
   Widget build(BuildContext context) {
+    print("hello");
     return Scaffold(
       body: Center(
         child: body[_currentIndex],

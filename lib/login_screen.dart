@@ -49,8 +49,9 @@ class _LogInScreenState extends State<LogInScreen> {
     bool loginSuccessful = false;
 
     if (!loginSuccessful) {
-      Navigator.pushReplacement(context, 
-      MaterialPageRoute(builder: (_) => NavBar()),
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const NavBar()),
       );
       }
     }
