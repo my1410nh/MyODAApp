@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myodaapp/home_screen.dart';
+import 'package:myodaapp/home/home_screen.dart';
+import 'package:myodaapp/nav/bottomnavbar.dart';
 import 'dialogue/login_dialogue.dart'; 
 
 class LogInScreen extends StatefulWidget {
@@ -49,7 +50,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
     if (!loginSuccessful) {
       Navigator.pushReplacement(context, 
-      MaterialPageRoute(builder: (_) => HomeScreen()),
+      MaterialPageRoute(builder: (_) => NavBar()),
       );
       }
     }
