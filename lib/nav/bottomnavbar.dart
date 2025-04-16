@@ -23,7 +23,7 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey, // Attach GlobalKey to Scaffold
+      key: _scaffoldKey, 
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -31,7 +31,7 @@ class _NavBarState extends State<NavBar> {
         leading: IconButton(
           icon: const Icon(Icons.menu, color: Colors.white),
           onPressed: () {
-            _scaffoldKey.currentState?.openDrawer(); // Open the drawer when menu icon is pressed
+            _scaffoldKey.currentState?.openDrawer(); 
           },
         ),
         actions: [
@@ -42,7 +42,7 @@ class _NavBarState extends State<NavBar> {
         ],
       ),
       body: _screens[_currentIndex],
-      drawer: const CustomDrawer(),  // Use CustomDrawer for the navigation menu
+      drawer: const CustomDrawer(), 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) => setState(() => _currentIndex = index),
