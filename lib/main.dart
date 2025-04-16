@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'splash_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:myodaapp/nav/bottomnavbar.dart';
 
 // void main() async {
 //   WidgetsFlutterBinding.ensureInitialized();

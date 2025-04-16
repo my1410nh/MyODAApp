@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LoginDialogue extends StatelessWidget {
-  const LoginDialogue({Key? key}) : super(key: key);
+  const LoginDialogue({super.key});
 
   @override
   Widget build(BuildContext context) {

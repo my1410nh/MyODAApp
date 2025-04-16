@@ -3,12 +3,14 @@ import 'package:myodaapp/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
+
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  PageController _controller = PageController();
+  final PageController _controller = PageController();
   int _currentPage = 0;
 
   final List<Map<String, String>> data = [
@@ -146,31 +148,3 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 }
 
-// import 'package:flutter/material.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-// import 'login_screen.dart';
-
-// class OnboardingScreen extends StatelessWidget {
-//   const OnboardingScreen({super.key});
-
-//   Future<void> _completeOnboarding(BuildContext context) async {
-//     final prefs = await SharedPreferences.getInstance();
-//     await prefs.setBool('onboarding_complete', true);
-//     Navigator.pushReplacement(
-//       context,
-//       MaterialPageRoute(builder: (_) => const LoginScreen()),
-//     );
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Center(
-//         child: ElevatedButton(
-//           onPressed: () => _completeOnboarding(context),
-//           child: const Text('Finish Onboarding'),
-//         ),
-//       ),
-//     );
-//   }
-// }

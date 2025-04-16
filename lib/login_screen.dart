@@ -3,6 +3,8 @@ import 'package:myodaapp/nav/bottomnavbar.dart';
 import 'dialogue/login_dialogue.dart'; 
 
 class LogInScreen extends StatefulWidget {
+  const LogInScreen({super.key});
+
   @override
   _LogInScreenState createState() => _LogInScreenState();
 }
