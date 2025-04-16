@@ -14,6 +14,7 @@ class CustomDrawer extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 12),
                 CircleAvatar(
                   radius: 40.0,  
                   backgroundColor: Colors.white,
@@ -128,21 +129,7 @@ class CustomDrawer extends StatelessWidget {
             ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text(
-              'VNPT Employee v1.0.7.2',
-              style: TextStyle(fontSize: 12, color: Colors.white),
-            ),
-          ),
-
-          const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text(
-              'VNPT Employee v1.0.7.2',
-              style: TextStyle(fontSize: 12, color: Colors.white),
-            ),
-          ),
+          
         ],
       ),
     );
