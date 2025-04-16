@@ -8,18 +8,17 @@ class CustomDrawer extends StatelessWidget {
     return Drawer(
       child: Column(
         children: [
-          DrawerHeader(
-            decoration: const BoxDecoration(
-              color: Colors.blue,
-            ),
+          Container(
+            color: Colors.blue, 
+            padding: const EdgeInsets.all(16.0),  
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CircleAvatar(
-                  radius: 40.0,
+                  radius: 40.0,  
                   backgroundColor: Colors.white,
                   child: Icon(
-                    Icons.person,
+                    Icons.person,  
                     color: Colors.blue,
                     size: 40,
                   ),
@@ -55,6 +54,7 @@ class CustomDrawer extends StatelessWidget {
               ],
             ),
           ),
+
           Expanded(
             child: Container(
               color: Colors.blue,
@@ -128,6 +128,14 @@ class CustomDrawer extends StatelessWidget {
             ),
             ),
           ),
+          const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              'VNPT Employee v1.0.7.2',
+              style: TextStyle(fontSize: 12, color: Colors.white),
+            ),
+          ),
+
           const Padding(
             padding: EdgeInsets.all(16.0),
             child: Text(
