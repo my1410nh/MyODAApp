@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:myodaapp/nav/bottomnavbar.dart';
-import 'dialogue/login_dialogue.dart'; 
+import 'package:provider/provider.dart';
+import 'package:myodaapp/viewmodel/login_viewmodel.dart';
+import 'package:myodaapp/view/nav/bottomnavbar.dart';
+import 'package:myodaapp/view/auth/login_dialogue.dart'; 
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
@@ -29,35 +31,41 @@ class _LogInScreenState extends State<LogInScreen> {
 
   // Password validator
   String? validatePassword(String? value) {
-  if (value == null || value.isEmpty) {
-    return 'Vui lòng nhập mật khẩu';
-  }
-  return null; 
+    if (value == null || value.isEmpty) {
+      return 'Vui lòng nhập mật khẩu';
+    }
+    return null; 
   }
 
-  void _attemptLogin() {
-  if (_formKey.currentState?.validate() ?? false) {
-    _formKey.currentState!.save();
+  void _attemptLogin() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      _formKey.currentState!.save();
 
-    final passwordRegex = RegExp(r'^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$');
-    if (!passwordRegex.hasMatch(_password ?? '')) {
-      showDialog(
+      final passwordRegex = RegExp(r'^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$');
+      if (!passwordRegex.hasMatch(_password ?? '')) {
+        showDialog(
+          context: context,
+          builder: (context) => const LoginDialogue(),
+        );
+        return;
+      }
+
+      bool loginSuccessful = await Provider.of<LoginViewModel>(context, listen: false)
+          .login(_email!, _password!);  // Call ViewModel's login function
+
+      if (loginSuccessful) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const NavBar()), // Navigate after login
+        );
+      } else {
+        showDialog(
         context: context,
         builder: (context) => const LoginDialogue(),
-      );
-      return;
-    }
-    bool loginSuccessful = false;
-
-    if (!loginSuccessful) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const NavBar()),
-      );
+        );
       }
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +127,7 @@ class _LogInScreenState extends State<LogInScreen> {
               ),
             ),
 
-            // Container
+            // Container for form
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
@@ -196,7 +204,7 @@ class _LogInScreenState extends State<LogInScreen> {
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: _attemptLogin,
+                            onPressed: _attemptLogin, // Trigger login
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Color.fromRGBO(1, 118, 255, 1),
                               padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
@@ -215,7 +223,7 @@ class _LogInScreenState extends State<LogInScreen> {
                         ),
                         SizedBox(height: 40),
 
-                        // Fingerprint 
+                        // Fingerprint Gesture
                         GestureDetector(
                           onTap: () {
                           },
@@ -226,8 +234,6 @@ class _LogInScreenState extends State<LogInScreen> {
                           ),
                         ),
                         SizedBox(height: 20),
-
-                        
                       ],
                     ),
                   ),
@@ -257,4 +263,3 @@ class _LogInScreenState extends State<LogInScreen> {
     );
   }
 }
-

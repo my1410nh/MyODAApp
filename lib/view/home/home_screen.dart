@@ -1,115 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:myodaapp/viewmodel/events_viewmodel.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final eventsViewModel = Provider.of<EventsViewModel>(context);
+
     return Scaffold(
-      body: Stack(
+      appBar: AppBar(title: Text('Home Screen')),
+      body: Column(
         children: [
-          Container(
-            height: 240,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/bg_home.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          SingleChildScrollView(
-            padding: const EdgeInsets.only(
-                top: 80, left: 20, right: 20, bottom: 100), 
-            child: Column(
-              children: [
-                const SizedBox(height: 30),
-                _buildCardSection(
-                  title: "Phân hệ CRM",
-                  icon: Icons.tune,
-                  items: _CRM,
-                ),
-                const SizedBox(height: 30),
-                _buildCardSection(
-                  title: "Phân hệ COM",
-                  icon: Icons.grid_view,
-                  items: _COM,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+          Text('Events:'),
+          Consumer<EventsViewModel>(
+            builder: (context, viewModel, child) {
+              if (viewModel.events.isEmpty) {
+                return Center(child: Text('No events available.'));
+              }
 
-
-  Widget _buildCardSection({
-    required String title,
-    required IconData icon,
-    required List<Map<String, String>> items,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 6)],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Title row
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              ),
-              Icon(icon, color: Colors.grey),
-            ],
-          ),
-          const SizedBox(height: 30), 
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: items.map((item) {
-              return Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Image.asset(
-                      item['icon']!,
-                      width: 32,
-                      height: 32,
-                      color: Colors.blue,
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: viewModel.events.length,
+                itemBuilder: (context, index) {
+                  final event = viewModel.events[index];
+                  return Card(
+                    child: ListTile(
+                      title: Text(event['name']),
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      item['label']!,
-                      style: const TextStyle(fontSize: 13),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
+                  );
+                },
               );
-            }).toList(),
+            },
           ),
-          const SizedBox(height: 20),
         ],
       ),
     );
   }
 }
-
-final List<Map<String, String>> _CRM = [
-  {"icon": "assets/icons/ic_users.png", "label": "Party Management"},
-  {"icon": "assets/icons/ic_headphone.png", "label": "Customer Management"},
-  {"icon": "assets/icons/ic_search_file.png", "label": "Sale Management"},
-];
-
-final List<Map<String, String>> _COM = [
-  {"icon": "assets/icons/ic_data_storage.png", "label": "Product Order"},
-  {"icon": "assets/icons/ic_layer.png", "label": "Work Order"},
-  {"icon": "assets/icons/ic_basket.png", "label": "Shopping Cart"},
-];

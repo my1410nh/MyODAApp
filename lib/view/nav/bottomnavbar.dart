@@ -11,7 +11,6 @@ class NavBar extends StatefulWidget {
 
 class _NavBarState extends State<NavBar> {
   int _currentIndex = 0;
-
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>(); // GlobalKey to access the Scaffold
 
   final List<Widget> _screens = const [
@@ -41,8 +40,8 @@ class _NavBarState extends State<NavBar> {
           )
         ],
       ),
-      body: _screens[_currentIndex],
-      drawer: const CustomDrawer(), 
+      body: _screens[_currentIndex],  // Show current screen based on the selected index
+      drawer: const CustomDrawer(),  // Custom Drawer
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) => setState(() => _currentIndex = index),

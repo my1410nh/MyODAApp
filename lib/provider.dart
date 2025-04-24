@@ -4,10 +4,9 @@ import 'viewmodel/login_viewmodel.dart';
 import 'viewmodel/events_viewmodel.dart';
 import 'view/auth/login_screen.dart';
 import 'view/home/home_screen.dart';
-import 'view/common/splash_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -23,8 +22,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'ODA Management App',
         theme: ThemeData(primarySwatch: Colors.blue),
-        home: SplashScreenWithTimer(),
-        debugShowCheckedModeBanner: false,
+        initialRoute: '/login',
         routes: {
           '/login': (context) => LogInScreen(),
           '/home': (context) => HomeScreen(),
