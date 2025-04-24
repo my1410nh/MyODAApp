@@ -12,7 +12,7 @@ class EventsViewModel extends ChangeNotifier {
     final events = await _apiService.fetchEvents(token);
     if (events != null) {
       _events = events;
-      notifyListeners();  // Notify UI after events are fetched
+      notifyListeners();  
     }
   }
 }

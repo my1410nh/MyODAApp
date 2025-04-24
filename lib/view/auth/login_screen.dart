@@ -51,12 +51,12 @@ class _LogInScreenState extends State<LogInScreen> {
       }
 
       bool loginSuccessful = await Provider.of<LoginViewModel>(context, listen: false)
-          .login(_email!, _password!);  // Call ViewModel's login function
+          .login(_email!, _password!); 
 
       if (loginSuccessful) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => const NavBar()), // Navigate after login
+          MaterialPageRoute(builder: (_) => const NavBar()), 
         );
       } else {
         showDialog(
@@ -74,7 +74,6 @@ class _LogInScreenState extends State<LogInScreen> {
         backgroundColor: Color.fromRGBO(0, 92, 252, 1),
         body: Stack(
           children: <Widget>[
-            // VNPT logo 
             Container(
               decoration: BoxDecoration(
                 image: DecorationImage(

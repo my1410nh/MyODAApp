@@ -8,14 +8,13 @@ class LoginViewModel extends ChangeNotifier {
 
   String? get token => _token;
 
-  // Handle login process
   Future<bool> login(String email, String password) async {
     final token = await _apiService.authenticate(email, password);
     if (token != null) {
       _token = token;
-      notifyListeners();  // Notify the UI after successful login
+      notifyListeners();  
       return true;
     }
-    return false;  // Login failed
+    return false;  
   }
 }

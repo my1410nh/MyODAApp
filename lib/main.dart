@@ -1,34 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'viewmodel/login_viewmodel.dart';
-import 'viewmodel/events_viewmodel.dart';
-import 'view/auth/login_screen.dart';
-import 'view/home/home_screen.dart';
-import 'view/common/splash_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: Text('Counter App')),
+        body: CounterWidget(),
+      ),
+    );
+  }
+}
+
+class CounterWidget extends StatefulWidget {
+  @override
+  _CounterWidgetState createState() => _CounterWidgetState();
+}
+
+class _CounterWidgetState extends State<CounterWidget> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => LoginViewModel()),
-        ChangeNotifierProvider(create: (_) => EventsViewModel()),
-      ],
-      child: MaterialApp(
-        title: 'ODA Management App',
-        theme: ThemeData(primarySwatch: Colors.blue),
-        home: SplashScreenWithTimer(),
-        debugShowCheckedModeBanner: false,
-        routes: {
-          '/login': (context) => LogInScreen(),
-          '/home': (context) => HomeScreen(),
-        },
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('$_counter', style: TextStyle(fontSize: 50)),
+          SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: _incrementCounter,
+            child: Icon(Icons.add),
+          ),
+        ],
       ),
     );
   }

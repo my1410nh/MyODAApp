@@ -1,25 +1,23 @@
-// lib/data/api_services.dart
 import 'package:dio/dio.dart';
-import 'package:myodaapp/core/constants.dart';  // Import the Constants class
+import 'package:myodaapp/core/constants.dart';  
 
 class ApiService {
   final Dio _dio = Dio(
     BaseOptions(
-      baseUrl: Constants.baseUrl,  // Using Constants from the imported file
+      baseUrl: Constants.baseUrl,  
       connectTimeout: const Duration(seconds: 5),
       receiveTimeout: const Duration(seconds: 3),
     ),
   );
 
-  // Login API call to get the JWT token
   Future<String?> authenticate(String email, String password) async {
     try {
       final response = await _dio.post(
-        Constants.loginUrl,  // Using Constants.loginUrl
+        Constants.loginUrl,  
         data: {'email': email, 'password': password},
       );
       if (response.statusCode == 200) {
-        return response.data['token'];  // Return JWT token
+        return response.data['token'];  
       } else {
         return null;
       }
@@ -29,17 +27,16 @@ class ApiService {
     }
   }
 
-  // Fetch events using the Authorization Bearer token
   Future<List<dynamic>?> fetchEvents(String token) async {
     try {
       final response = await _dio.get(
-        Constants.eventsUrl,  // Using Constants.eventsUrl
+        Constants.eventsUrl,  
         options: Options(
           headers: {'Authorization': 'Bearer $token'},
         ),
       );
       if (response.statusCode == 200) {
-        return response.data['events'];  // Return events list
+        return response.data['events'];  
       } else {
         return null;
       }
