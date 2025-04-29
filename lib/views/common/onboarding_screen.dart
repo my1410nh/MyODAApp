@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myodaapp/view/auth/login_screen.dart';
+import 'package:myodaapp/views/auth/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -76,7 +76,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         textAlign: TextAlign.center,
                       ),
 
-                      const SizedBox(height: 24), // spacing before indicators
+                      const SizedBox(height: 24), 
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,

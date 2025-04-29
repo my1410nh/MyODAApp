@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'view/common/splash_screen.dart';
+import 'views/common/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
