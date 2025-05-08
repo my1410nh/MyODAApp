@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'onboarding_screen.dart';
-import 'package:myodaapp/views/auth/login_screen.dart';
+import 'package:odaapp/view/login_screen.dart';
 
 class SplashScreenWithTimer extends StatefulWidget {
   const SplashScreenWithTimer({super.key});

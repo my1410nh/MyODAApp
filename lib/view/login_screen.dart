@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:myodaapp/views/nav/bottomnavbar.dart';
-import 'package:myodaapp/views/auth/login_dialogue.dart';
-import 'package:myodaapp/viewmodels/login_viewmodel.dart'; // Import your ViewModel
+import 'package:odaapp/viewmodel/login_viewmodel.dart';
+import 'package:odaapp/view/login_dialogue.dart';
+import 'package:odaapp/view/bottomnavbar.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
@@ -17,7 +17,6 @@ class _LogInScreenState extends State<LogInScreen> {
   String? _email;
   String? _password;
 
-  // Email validator
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Vui lòng nhập email';
@@ -29,7 +28,6 @@ class _LogInScreenState extends State<LogInScreen> {
     return null;
   }
 
-  // Password validator
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'Vui lòng nhập mật khẩu';
@@ -41,18 +39,32 @@ class _LogInScreenState extends State<LogInScreen> {
     if (_formKey.currentState?.validate() ?? false) {
       _formKey.currentState!.save();
       final loginVM = Provider.of<LoginViewModel>(context, listen: false);
+      final isValidPassword = loginVM.validatePasswordRules(_password!);
 
-      bool success = await loginVM.login(_email!, _password!);
+      if (!isValidPassword) {
+        showDialog(
+          context: context,
+          builder: (context) => const LoginDialogue(),
+        );
+        return;
+      }
 
-      if (success) {
-        // Navigate to your NavBar (or Event List screen)
+      final result = await loginVM.login(_email!, _password!);
+
+      if (result == 'success') {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (_) => const NavBar()),
         );
+      } else if (result == '403') {
+        showDialog(
+        context: context,
+        builder: (context) => const LoginDialogue(),
+        );
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(loginVM.error ?? 'Đăng nhập thất bại')),
+        showDialog(
+          context: context,
+          builder: (context) => const LoginDialogue(),
         );
       }
     }
@@ -66,7 +78,6 @@ class _LogInScreenState extends State<LogInScreen> {
       backgroundColor: const Color.fromRGBO(0, 92, 252, 1),
       body: Stack(
         children: <Widget>[
-          // VNPT logo
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -75,8 +86,6 @@ class _LogInScreenState extends State<LogInScreen> {
               ),
             ),
           ),
-
-          // Logo and Title
           Align(
             alignment: Alignment.topCenter,
             child: Padding(
@@ -118,8 +127,6 @@ class _LogInScreenState extends State<LogInScreen> {
               ),
             ),
           ),
-
-          // Login Form
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
@@ -149,8 +156,6 @@ class _LogInScreenState extends State<LogInScreen> {
                         ),
                       ),
                       const SizedBox(height: 30),
-
-                      // Email Field
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                         child: TextFormField(
@@ -163,8 +168,6 @@ class _LogInScreenState extends State<LogInScreen> {
                           onSaved: (value) => _email = value,
                         ),
                       ),
-
-                      // Password Field
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                         child: TextFormField(
@@ -188,10 +191,7 @@ class _LogInScreenState extends State<LogInScreen> {
                           onSaved: (value) => _password = value,
                         ),
                       ),
-
                       const SizedBox(height: 40),
-
-                      // Login Button
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
@@ -215,12 +215,8 @@ class _LogInScreenState extends State<LogInScreen> {
                         ),
                       ),
                       const SizedBox(height: 40),
-
-                      // Fingerprint Icon
                       GestureDetector(
-                        onTap: () {
-                          // TODO: Fingerprint auth in future
-                        },
+                        onTap: () {},
                         child: const Icon(
                           Icons.fingerprint,
                           color: Colors.blue,
@@ -234,8 +230,6 @@ class _LogInScreenState extends State<LogInScreen> {
               ),
             ),
           ),
-
-          // Copyright Text
           const Positioned(
             bottom: 25,
             left: 0,

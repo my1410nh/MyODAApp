@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../home/home_screen.dart';
+import 'package:odaapp/view/home_screen.dart';
 import 'custom_drawer.dart'; 
 
 class NavBar extends StatefulWidget {
