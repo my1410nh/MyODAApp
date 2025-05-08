@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:odaapp/view/login_screen.dart';
+import 'package:myodaapp/view/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardingScreen extends StatefulWidget {

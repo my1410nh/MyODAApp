@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:odaapp/viewmodel/login_viewmodel.dart';
-import 'package:odaapp/view/login_dialogue.dart';
-import 'package:odaapp/view/bottomnavbar.dart';
+import 'package:myodaapp/viewmodel/login_viewmodel.dart';
+import 'package:myodaapp/view/login_dialogue.dart';
+import 'package:myodaapp/view/bottomnavbar.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
