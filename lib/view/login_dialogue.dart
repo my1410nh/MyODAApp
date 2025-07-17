@@ -20,7 +20,7 @@ class LoginDialogue extends StatelessWidget {
         children: [
           const Center(
             child: Text(
-              'Thông báo',
+              'Alert',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -40,7 +40,7 @@ class LoginDialogue extends StatelessWidget {
       ),
       const SizedBox(height: 20),
       const Text(
-        'Tên truy cập hoặc mật khẩu không đúng. Mời bạn đăng nhập lại!',
+        'Incorrect username or password. Please log in again!',
         textAlign: TextAlign.center,
         style: TextStyle(fontSize: 16),
       ),
@@ -50,14 +50,14 @@ class LoginDialogue extends StatelessWidget {
           Navigator.of(context).pop(); // Close the dialog
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color.fromRGBO(1, 118, 255, 1),
+          backgroundColor: Color(0xFF18B3BD),
           padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 30),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5),
           ),
         ),
         child: const Text(
-          'Thử lại',
+          'Retry',
           style: TextStyle(
             fontSize: 16,
             color: Colors.white,

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
+
 import 'view/splash_screen.dart';
 import 'viewmodel/login_viewmodel.dart';
+import 'model/leave_form_controller.dart'; // ✅ Add this import
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,6 +16,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => LoginViewModel()),
+        ChangeNotifierProvider(create: (_) => LeaveFormController()), // ✅ Add this line
       ],
       child: const MyApp(),
     ),
@@ -29,7 +32,10 @@ class MyApp extends StatelessWidget {
       title: 'VNPT App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        fontFamily: 'SF Pro Text',
+        fontFamily: 'Poppins',
+        textTheme: ThemeData.light().textTheme.apply(
+              fontFamily: 'Poppins',
+            ),
       ),
       home: const SplashScreenWithTimer(),
       debugShowCheckedModeBanner: false,

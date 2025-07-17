@@ -19,18 +19,14 @@ class _LogInScreenState extends State<LogInScreen> {
 
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Vui lòng nhập email';
-    }
-    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    if (!emailRegex.hasMatch(value)) {
-      return 'Email không hợp lệ';
+      return 'Please enter your username/email';
     }
     return null;
   }
 
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Vui lòng nhập mật khẩu';
+      return 'Please enter your password';
     }
     return null;
   }
@@ -56,11 +52,6 @@ class _LogInScreenState extends State<LogInScreen> {
           context,
           MaterialPageRoute(builder: (_) => const NavBar()),
         );
-      } else if (result == '403') {
-        showDialog(
-        context: context,
-        builder: (context) => const LoginDialogue(),
-        );
       } else {
         showDialog(
           context: context,
@@ -75,177 +66,176 @@ class _LogInScreenState extends State<LogInScreen> {
     final loginVM = Provider.of<LoginViewModel>(context);
 
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(0, 92, 252, 1),
-      body: Stack(
-        children: <Widget>[
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/vnptlogo.png'),
-                alignment: Alignment.topLeft,
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 60),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  CircleAvatar(
-                    radius: 30.0,
-                    backgroundColor: Colors.white,
-                    child: Image.asset(
-                      'assets/images/elipse1.png',
-                      width: 60.0,
-                      height: 60.0,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'HỆ THỐNG THÔNG TIN',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: 'SF Pro Text',
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  const Text(
-                    'QUẢN LÝ TÀI CHÍNH VNPT',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontFamily: 'SF Pro Text',
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: 660,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40.0),
-                  topRight: Radius.circular(40.0),
-                ),
-                color: Colors.white,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 40.0, left: 20.0, right: 20.0),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      const Text(
-                        'ĐĂNG NHẬP',
-                        style: TextStyle(
-                          fontFamily: 'SF Pro Text',
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                        ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: IntrinsicHeight(
+                child: Stack(
+                  children: [
+                    // Green background image with rounded bottom
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(40),
+                        bottomRight: Radius.circular(40),
                       ),
-                      const SizedBox(height: 30),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                            border: UnderlineInputBorder(),
-                            labelText: 'Tên đăng nhập',
-                          ),
-                          keyboardType: TextInputType.emailAddress,
-                          validator: validateEmail,
-                          onSaved: (value) => _email = value,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                        child: TextFormField(
-                          obscureText: !_isPasswordVisible,
-                          decoration: InputDecoration(
-                            border: const UnderlineInputBorder(),
-                            labelText: 'Mật khẩu',
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                                color: Colors.grey,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  _isPasswordVisible = !_isPasswordVisible;
-                                });
-                              },
-                            ),
-                          ),
-                          validator: validatePassword,
-                          onSaved: (value) => _password = value,
-                        ),
-                      ),
-                      const SizedBox(height: 40),
-                      SizedBox(
+                      child: Image.asset(
+                        'assets/images/bg.png',
+                        fit: BoxFit.cover,
+                        height: constraints.maxHeight * 0.35,
                         width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: loginVM.isLoading ? null : _attemptLogin,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromRGBO(1, 118, 255, 1),
-                            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+
+                    // Centered logo overlapping green and white
+                    Positioned(
+                      top: constraints.maxHeight * 0.23,
+                      left: (constraints.maxWidth / 2) - 75, // Assuming logo is 150 width
+                      child: Image.asset(
+                        'assets/images/onboard1.png', // Replace with your actual logo
+                        height: 150,
+                        width: 150,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+
+                    // Main content pushed down below logo
+                    Padding(
+                      padding: EdgeInsets.only(top: constraints.maxHeight * 0.47),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Welcome back!',
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          child: loginVM.isLoading
-                              ? const CircularProgressIndicator(color: Colors.white)
-                              : const Text(
-                                  'Đăng nhập',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.white,
+                            const SizedBox(height: 30),
+                            Form(
+                              key: _formKey,
+                              child: Column(
+                                children: [
+                                  TextFormField(
+                                    style: const TextStyle(fontFamily: 'Poppins'),
+                                    decoration: const InputDecoration(
+                                      prefixIcon: Icon(Icons.person_outline),
+                                      hintText: 'Username/Email',
+                                      hintStyle: TextStyle(fontFamily: 'Poppins'),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                                      ),
+                                    ),
+                                    validator: validateEmail,
+                                    onSaved: (value) => _email = value,
                                   ),
-                                ),
+                                  const SizedBox(height: 20),
+                                  TextFormField(
+                                    obscureText: !_isPasswordVisible,
+                                    style: const TextStyle(fontFamily: 'Poppins'),
+                                    decoration: InputDecoration(
+                                      prefixIcon: const Icon(Icons.lock_outline),
+                                      hintText: 'Password',
+                                      hintStyle: const TextStyle(fontFamily: 'Poppins'),
+                                      border: const OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                                      ),
+                                      suffixIcon: IconButton(
+                                        icon: Icon(
+                                          _isPasswordVisible
+                                              ? Icons.visibility
+                                              : Icons.visibility_off,
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            _isPasswordVisible = !_isPasswordVisible;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    validator: validatePassword,
+                                    onSaved: (value) => _password = value,
+                                  ),
+                                  const SizedBox(height: 30),
+                                  SizedBox(
+                                    width: double.infinity,
+                                    height: 48,
+                                    child: ElevatedButton(
+                                      onPressed: loginVM.isLoading ? null : _attemptLogin,
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: const Color(0xFF18B3BD),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(30),
+                                        ),
+                                      ),
+                                      child: loginVM.isLoading
+                                          ? const CircularProgressIndicator(color: Colors.white)
+                                          : const Text(
+                                              'Sign In',
+                                              style: TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontSize: 16,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Spacer(),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 20.0, top: 40),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  const Text(
+                                    'Version 1.0.0',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.grey,
+                                      fontFamily: 'Poppins',
+                                    ),
+                                  ),
+                                  const Text(
+                                    'Powered by Srdn.Co',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.grey,
+                                      fontFamily: 'Poppins',
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      // Handle help & support
+                                    },
+                                    child: const Text(
+                                      'Help & Support',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.blue,
+                                        fontFamily: 'Poppins',
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      const SizedBox(height: 40),
-                      GestureDetector(
-                        onTap: () {},
-                        child: const Icon(
-                          Icons.fingerprint,
-                          color: Colors.blue,
-                          size: 40,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
-          ),
-          const Positioned(
-            bottom: 25,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: Text(
-                'Copyright 2020 VNPT IT',
-                style: TextStyle(
-                  color: Color.fromRGBO(119, 140, 162, 1),
-                  fontSize: 12,
-                  fontFamily: 'SF Pro Text',
-                ),
-              ),
-            ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }

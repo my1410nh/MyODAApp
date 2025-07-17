@@ -35,7 +35,7 @@ class _EventDetailState extends State<EventDetail> {
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/bg_home.png'),
+                    image: AssetImage('assets/images/bg.png'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -98,7 +98,7 @@ class _EventDetailState extends State<EventDetail> {
               child: TextField(
                 onChanged: (value) => setState(() => _searchQuery = value),
                 decoration: const InputDecoration(
-                  hintText: 'Nhập liệu tìm kiếm...',
+                  hintText: 'Search...',
                   border: InputBorder.none,
                   icon: Icon(Icons.search, color: Colors.grey),
                 ),

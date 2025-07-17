@@ -16,17 +16,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final List<Map<String, String>> data = [
     {
       'image': 'assets/images/onboard1.png',
-      'title': 'Dễ dàng đổi các ưu đãi, quà tặng',
+      'title': 'Lorem ipsum is a dummy text without any sense.',
       'desc': 'Lorem ipsum is a dummy text without any sense. It is a sequence of Latin words that, as they are positioned',
     },
     {
       'image': 'assets/images/onboard2.png',
-      'title': 'Xem thông tin Hội viên',
+      'title': 'Lorem ipsum is a dummy text without any sense.',
       'desc': 'Lorem ipsum is a dummy text without any sense. It is a sequence of Latin words that, as they are positioned',
     },
     {
       'image': 'assets/images/onboard3.png',
-      'title': 'Tận hưởng các ưu đãi đặc quyền',
+      'title': 'Lorem ipsum is a dummy text without any sense.',
       'desc': 'Lorem ipsum is a dummy text without any sense. It is a sequence of Latin words that, as they are positioned',
     },
   ];
@@ -105,7 +105,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButton(onPressed: _finishOnboarding,
-                  child: Text('Bỏ qua', style: TextStyle(color: Colors.blue)),
+                  child: Text('Skip', style: TextStyle(color: Colors.blue)),
                 ),
                 GestureDetector(
                   onTap: () {
@@ -123,13 +123,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       gradient: LinearGradient(
-                        colors: [Color(0xFF40CFFF), Color(0xFF007BFF)], 
+                        colors: [Color(0xFF40CFFF), Color(0xFF18B3BD)], 
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
                     ),
                     child: Text(
-                      'Tiếp',
+                      'Next',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
