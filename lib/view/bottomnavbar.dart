@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myodaapp/view/home_screen.dart';
+import 'package:myodaapp/view/profile_screen.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
@@ -13,7 +14,7 @@ class _NavBarState extends State<NavBar> {
 
   final List<Widget> _screens = const [
     HomeScreen(),
-    Center(child: Text('Profile')),
+    ProfileScreen(), 
   ];
 
   @override
@@ -27,7 +28,7 @@ class _NavBarState extends State<NavBar> {
         backgroundColor: Colors.white,
         elevation: 8,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Color(0xFF00C2CB),
+        selectedItemColor: const Color(0xFF00C2CB),
         unselectedItemColor: Colors.grey,
         selectedFontSize: 13,
         unselectedFontSize: 13,
